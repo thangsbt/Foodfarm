@@ -1,0 +1,89 @@
+<div class="block-news box-product {$arr_config.class_prefix}">
+    {if $arr_config.title}
+        <div class="block-title text-center">
+            <h2>{$arr_config.title}</h2>
+
+            {if isset($arr_config.slogan)}
+                <p>{$arr_config.slogan}</p>
+            {/if}
+        </div>
+    {/if}
+    {if !empty($arr_data)}
+        <div class="row">
+            {if isset($arr_block.id)}
+                {$id_slider = "slider-news-{$arr_block.id}-{time()}-{rand(1, 1000)}"}
+            {else}
+                {$id_slider = "slider-news-{time()}-{rand(1, 1000)}"}
+            {/if}
+            <ul id="{$id_slider}" class="slider-product">
+                {if count($arr_data) < $per_row}
+                     {$chunk = 1}
+                {else if count($arr_data) < $per_row*$chunk && $chunk > 1}
+                     {$chunk = count($arr_data)/$per_row}
+                {/if}
+                {$arr_data = array_chunk($arr_data,$chunk)}
+                {foreach from = $arr_data item=data}
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {foreach from = $data item=item}
+                            {$this->element("News.news_{$arr_config.element}",['item'=> $item,'col' =>12,'col_tablet' =>12,'col_mobile' =>12,'view_slider' => 1,'view_sort' => 'grid'])}
+                        {/foreach}
+                    </div>
+                {/foreach}
+            </ul>
+        </div>
+        <script type="text/javascript">
+            var owl = $("#{$id_slider}");
+            owl.owlCarousel({
+                items:{$per_row},
+                loop: true,
+                lazyLoad: true,
+                itemsDesktop: [1200, 3],
+                itemsDesktopSmall: [991, 3],
+                itemsTablet: [768, 2],
+                itemsMobile: [479, 2],
+                navigation: Boolean({$arr_config.button_next_pre}),
+                pagination: Boolean({$arr_config.button_dots_nav}),
+                autoPlay: Boolean({$arr_config.auto_play}),
+                autoPlayTimeout:{$arr_config.nav_speed},
+                autoPlayHoverPause: false,
+                animateOut: '{$arr_config.animate_out}',
+                animateIn: '{$arr_config.animate_in}',
+                itemsCustom: [
+                    [0, "{$arr_config.per_row_mobile}"],
+                    [768, "{$arr_config.per_row_tablet}"],
+                    [1024, "{$arr_config.per_row}"],
+                ],
+            });
+        </script>
+    {else}
+        <label>{__d('default', 'empty_data')}</label>
+    {/if}
+</div>
+
+
+<section class="awe-section-1"> 
+    <div class="home-slider owl-carousel owl-loaded owl-drag" data-lg-items="1" data-md-items="1" data-sm-items="1" data-xs-items="1" data-margin="0" data-nav="false" data-dot="false">   
+<div class="owl-stage-outer owl-height" style="height: 373px;">
+    <div class="owl-stage"><div class="owl-item" style="width: 1301px;">
+        <div class="item">
+        <a href="#" class="clearfix">
+            <img src="//bizweb.dktcdn.net/100/283/016/themes/748431/assets/slider_1.jpg?1577681735580" alt="Slider 1">
+        </a>    
+    </div></div><div class="owl-item active" style="width: 1301px;"><div class="item">
+        <a href="#" class="clearfix">
+            <img src="//bizweb.dktcdn.net/100/283/016/themes/748431/assets/slider_2.jpg?1577681735580" alt="Slider 2">
+        </a>    
+    </div></div></div></div><div class="owl-nav"><div class="owl-prev">prev</div><div class="owl-next disabled">next</div></div><div class="owl-dots"><div class="owl-dot"><span></span></div><div class="owl-dot active"><span></span></div></div></div><!-- /.products -->
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
